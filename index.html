@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Turbo C++ Online Compiler | Borland Turbo C++ 3.0 in Browser</title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="Run authentic Borland Turbo C++ 3.0 online in your browser. Complete with DOSBox WebAssembly emulation, conio.h, graphics.h, instant code paste, keyboard shortcuts, and interactive web simulator.">
+    <meta name="keywords" content="turbo c++ online, turbo c compiler, borland turbo c 3.0, conio.h online, graphics.h online, run turbo c in browser, c++ online ide">
+    <meta name="theme-color" content="#0000a8">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- JS-DOS v8 styles -->
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+</head>
+<body class="theme-borland crt-overlay">
+
+    <!-- Top Borland Header -->
+    <header class="borland-header">
+        <div class="brand-wrapper">
+            <span class="brand-logo">TC++ 3.0</span>
+            <span class="brand-title">Turbo C++ Online Compiler</span>
+        </div>
+
+        <div class="header-controls">
+            <!-- Theme Selector -->
+            <select id="theme-select" class="select-retro" title="Change Visual Theme">
+                <option value="theme-borland">Classic Borland Blue</option>
+                <option value="theme-dark">Obsidian Dark</option>
+                <option value="theme-amber">Amber CRT (Phosphor)</option>
+                <option value="theme-matrix">Matrix Green (Phosphor)</option>
+            </select>
+
+            <!-- Sound Toggle -->
+            <button id="btn-sound-toggle" class="btn-retro" title="Toggle PC Speaker Beeps">🔊 Sound: ON</button>
+
+            <!-- Fullscreen -->
+            <button id="btn-fullscreen" class="btn-retro" title="Toggle Fullscreen Mode">⛶ Fullscreen</button>
+
+            <!-- Restart DOSBox -->
+            <button id="btn-restart-dos" class="btn-retro" title="Restart DOSBox Emulator">🔄 Restart TC</button>
+        </div>
+    </header>
+
+    <!-- Mode Navigation Tabs -->
+    <nav class="tabs-nav">
+        <button id="tab-btn-dosbox" class="tab-btn active">🕹️ Borland Turbo C++ 3.0 (DOSBox)</button>
+        <button id="tab-btn-simulator" class="tab-btn">⚡ Turbo C++ Web IDE & Simulator</button>
+        <button id="tab-btn-library" class="tab-btn">📚 Sample Programs Library</button>
+        <button id="tab-btn-guide" class="tab-btn">📖 Shortcuts & Guide</button>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="workspace-area">
+
+        <!-- ============================================================ -->
+        <!-- SECTION 1: AUTHENTIC BORLAND TURBO C++ 3.0 (DOSBox WASM)    -->
+        <!-- ============================================================ -->
+        <section id="section-dosbox" style="display: block;">
+            
+            <!-- Quick Action Toolbar -->
+            <div class="toolbar-card">
+                <!-- Action Row 1: TC Hotkeys -->
+                <div class="toolbar-row">
+                    <span class="toolbar-label">Commands:</span>
+                    <button id="tc-key-run" class="btn-key highlight-run" title="Run Program (Ctrl + F9)">▶ Run (Ctrl+F9)</button>
+                    <button id="tc-key-compile" class="btn-key highlight-compile" title="Compile Program (Alt + F9)">🔨 Compile (Alt+F9)</button>
+                    <button id="tc-key-output" class="btn-key highlight-output" title="View User Output Screen (Alt + F5)">🖥️ Output (Alt+F5)</button>
+                    <button id="tc-key-save" class="btn-key" title="Save File (F2)">💾 Save (F2)</button>
+                    <button id="tc-key-open" class="btn-key" title="Open File (F3)">📂 Open (F3)</button>
+                    <button id="tc-key-zoom" class="btn-key" title="Zoom Window (F5)">🔍 Zoom (F5)</button>
+                    <button id="tc-key-nextwin" class="btn-key" title="Next Window (F6)">📑 Next (F6)</button>
+                    <button id="tc-key-step" class="btn-key" title="Step Over (F8)">🐞 Step (F8)</button>
+                    <button id="tc-key-trace" class="btn-key" title="Trace Into (F7)">🔍 Trace (F7)</button>
+                    <button id="tc-key-menu" class="btn-key" title="Activate Main Menu (F10)">📋 Menu (F10)</button>
+                    <button id="tc-key-esc" class="btn-key" title="Escape">⎋ Esc</button>
+                    <button id="tc-key-quit" class="btn-key" title="Quit Turbo C++ (Alt + X)">❌ Quit (Alt+X)</button>
+                    
+                    <button id="btn-open-paste" class="btn-retro primary" style="margin-left: auto;">
+                        📋 Paste / Inject Code
+                    </button>
+                    <button id="btn-upload-file" class="btn-retro" title="Upload local .cpp or .c file">
+                        ⬆️ Upload File
+                    </button>
+                    <button id="btn-export-file" class="btn-retro" title="Download source code">
+                        ⬇️ Download Code
+                    </button>
+                    <input type="file" id="file-upload-input" accept=".cpp,.c,.h,.txt" style="display: none;">
+                </div>
+
+                <!-- Action Row 2: Touch / Virtual Navigation & Symbols -->
+                <div class="toolbar-row">
+                    <span class="toolbar-label">Symbols:</span>
+                    <button class="tc-sym-btn" data-sym="#">#</button>
+                    <button class="tc-sym-btn" data-sym="<">&lt;</button>
+                    <button class="tc-sym-btn" data-sym=">">&gt;</button>
+                    <button class="tc-sym-btn" data-sym="{">{</button>
+                    <button class="tc-sym-btn" data-sym="}">}</button>
+                    <button class="tc-sym-btn" data-sym="(">(</button>
+                    <button class="tc-sym-btn" data-sym=")">)</button>
+                    <button class="tc-sym-btn" data-sym="[">[</button>
+                    <button class="tc-sym-btn" data-sym="]">]</button>
+                    <button class="tc-sym-btn" data-sym=";">;</button>
+                    <button class="tc-sym-btn" data-sym='"'>"</button>
+                    <button class="tc-sym-btn" data-sym="'">'</button>
+                    <button class="tc-sym-btn" data-sym="\">\</button>
+                    <button class="tc-sym-btn" data-sym="&">&amp;</button>
+                    <button class="tc-sym-btn" data-sym="*">*</button>
+                    <button class="tc-sym-btn" data-sym="=">=</button>
+                    <button class="tc-sym-btn" data-sym="+">+</button>
+                    <button class="tc-sym-btn" data-sym="-">-</button>
+                    <button class="tc-sym-btn" data-sym="::">::</button>
+                    <button class="tc-sym-btn" data-sym="<<">&lt;&lt;</button>
+                    <button class="tc-sym-btn" data-sym=">>">&gt;&gt;</button>
+                    <button class="tc-sym-btn" data-sym="include ">include</button>
+                    <button class="tc-sym-btn" data-sym="iostream.h">iostream.h</button>
+                    <button class="tc-sym-btn" data-sym="conio.h">conio.h</button>
+                    <button class="tc-sym-btn" data-sym="clrscr();">clrscr();</button>
+                    <button class="tc-sym-btn" data-sym="getch();">getch();</button>
+
+                    <!-- Navigation keys -->
+                    <span class="toolbar-label" style="min-width: 45px; margin-left: 10px;">Keys:</span>
+                    <button id="tc-nav-up" class="btn-key">▲</button>
+                    <button id="tc-nav-down" class="btn-key">▼</button>
+                    <button id="tc-nav-left" class="btn-key">◄</button>
+                    <button id="tc-nav-right" class="btn-key">►</button>
+                    <button id="tc-nav-enter" class="btn-key">↵ Enter</button>
+                    <button id="tc-nav-bksp" class="btn-key">⌫ Backspace</button>
+                    <button id="tc-nav-tab" class="btn-key">⇥ Tab</button>
+                </div>
+            </div>
+
+            <!-- DOSBox Emulator Container -->
+            <div id="dos-container" class="emulator-wrapper">
+                <!-- JS-DOS Canvas will be mounted here -->
+                <div id="dos"></div>
+
+                <!-- Loading / Boot Overlay -->
+                <div id="dos-loading-overlay" class="loading-overlay">
+                    <div class="retro-spinner"></div>
+                    <div id="dos-status-text" class="loading-text">Initializing DOSBox WebAssembly Engine...</div>
+                    <div class="loading-tip">
+                        Loading authentic Borland Turbo C++ 3.0 with BGI Graphics, conio.h, and TC.EXE.
+                    </div>
+                    <button id="dos-retry-btn" class="btn-retro primary" style="display: none; margin-top: 16px;">
+                        Try Alternative Mirror
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: TURBO C++ WEB IDE & SIMULATOR (Instant Execution) -->
+        <!-- ============================================================ -->
+        <section id="section-simulator" style="display: none;">
+            <div class="simulator-grid">
+                
+                <!-- Left: Source Code Editor -->
+                <div class="editor-card">
+                    <div class="card-header">
+                        <span>📝 NONAME00.CPP - Turbo C++ Editor</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="sim-run-btn" class="btn-retro primary">▶ Run (Ctrl+F9)</button>
+                            <button id="sim-clear-btn" class="btn-retro">🧹 Clrscr</button>
+                        </div>
+                    </div>
+                    <textarea id="sim-code-editor" class="code-editor-area" spellcheck="false">// Turbo C++ 3.0 - Classic Program
+#include <iostream.h>
+#include <conio.h>
+
+void main()
+{
+    clrscr();  // Clear user screen
+    
+    textcolor(YELLOW);
+    cout << "========================================" << endl;
+    cout << "   WELCOME TO TURBO C++ WEB SIMULATOR   " << endl;
+    cout << "========================================" << endl;
+    cout << endl;
+    
+    textcolor(LIGHTGREEN);
+    cout << "Testing iostream.h and conio.h support!" << endl;
+    cout << "Size of int: " << sizeof(int) << " bytes (16-bit emulation)" << endl;
+    cout << endl;
+    
+    textcolor(LIGHTCYAN);
+    cout << "Press any key to exit...";
+    
+    getch();   // Pause output screen
+}
+</textarea>
+                </div>
+
+                <!-- Right: CRT Output Screen & Graphics Canvas -->
+                <div class="output-card">
+                    <div class="card-header">
+                        <span>🖥️ DOS User Output Screen (80x25 / BGI)</span>
+                        <span id="sim-status" style="font-size: 0.75rem; color: var(--accent-yellow);">Ready</span>
+                    </div>
+
+                    <div class="crt-terminal-box">
+                        <!-- 80x25 Character Grid -->
+                        <div id="sim-terminal"></div>
+
+                        <!-- 640x480 BGI Graphics Canvas -->
+                        <canvas id="sim-canvas" width="640" height="480"></canvas>
+
+                        <!-- Stdin Prompt Overlay -->
+                        <div id="screen-input-overlay"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: CODE LIBRARY & PRACTICAL EXAMPLES                 -->
+        <!-- ============================================================ -->
+        <section id="section-library" style="display: none;">
+            <div class="guide-container">
+                <h2>📚 Classic Turbo C++ Programs & Exam Solutions</h2>
+                <p style="margin-bottom: 16px; font-size: 0.85rem; color: var(--accent-cyan);">
+                    Browse through classic computer practical lab programs. Click <strong>"Run in Web IDE"</strong> for instant simulation or <strong>"Inject to Turbo C++"</strong> to type it straight into Borland DOSBox!
+                </p>
+
+                <div id="examples-grid" class="examples-grid">
+                    <!-- Populated dynamically by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: TURBO C++ GUIDE & CHEAT SHEET                    -->
+        <!-- ============================================================ -->
+        <section id="section-guide" style="display: none;">
+            <div class="guide-container">
+                <h2>📖 Turbo C++ 3.0 Complete Reference & Cheat Sheet</h2>
+
+                <h3>⌨️ Essential Keyboard Shortcuts in Borland Turbo C++</h3>
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Shortcut</th>
+                            <th>Action</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ctrl + F9</strong></td>
+                            <td>Run Program</td>
+                            <td>Compiles, links, and runs the active C/C++ program in one step.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alt + F9</strong></td>
+                            <td>Compile</td>
+                            <td>Compiles to object file (.OBJ) and checks for syntax errors without executing.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alt + F5</strong></td>
+                            <td>User Screen</td>
+                            <td>Switches to the output console to view program output if getch() wasn't used.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F2</strong></td>
+                            <td>Save File</td>
+                            <td>Saves current editor window to disk (default C:\TC\BIN\NONAME00.CPP).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F3</strong></td>
+                            <td>Open File</td>
+                            <td>Opens file dialog to browse and load .C, .CPP, or header files.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F5</strong></td>
+                            <td>Zoom Window</td>
+                            <td>Toggles the active editor window between full size and split tile size.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F6</strong></td>
+                            <td>Next Window</td>
+                            <td>Cycles focus between open editor windows and the Message window.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F7</strong></td>
+                            <td>Trace Into</td>
+                            <td>Steps through code line-by-line, entering into called functions.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F8</strong></td>
+                            <td>Step Over</td>
+                            <td>Steps through code line-by-line, executing functions without entering them.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F10</strong></td>
+                            <td>Menu Bar</td>
+                            <td>Activates top menu bar (File, Edit, Search, Run, Compile, Debug, Options).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alt + X</strong></td>
+                            <td>Exit Turbo C++</td>
+                            <td>Closes the Turbo C++ IDE and returns to the DOS command prompt.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🛠️ Classic &lt;conio.h&gt; Functions (Console I/O)</h3>
+                <div class="guide-box">
+                    <p><strong>clrscr()</strong>: Clears the entire text screen and positions cursor at (1, 1).</p>
+                    <p><strong>getch()</strong>: Reads a single character from the keyboard without echoing it to the screen. Crucial in Turbo C++ to pause the user screen before returning to the IDE!</p>
+                    <p><strong>getche()</strong>: Same as getch(), but echoes the typed character to screen.</p>
+                    <p><strong>gotoxy(x, y)</strong>: Moves cursor to column x (1 to 80) and line y (1 to 25).</p>
+                    <p><strong>textcolor(color)</strong>: Sets foreground text color (0 to 15, e.g. YELLOW, RED, GREEN, WHITE).</p>
+                    <p><strong>textbackground(color)</strong>: Sets background text color (0 to 7).</p>
+                    <p><strong>delay(milliseconds)</strong>: Suspends execution for specified milliseconds (from &lt;dos.h&gt;).</p>
+                </div>
+
+                <h3>🎨 Borland Graphics Interface (&lt;graphics.h&gt;)</h3>
+                <div class="guide-box">
+                    <p><strong>initgraph(&amp;gd, &amp;gm, "C:\\TC\\BGI")</strong>: Initializes graphics hardware in EGA/VGA mode (usually 640x480 with 16 colors).</p>
+                    <p><strong>circle(x, y, radius)</strong>: Draws a circle at center (x, y).</p>
+                    <p><strong>line(x1, y1, x2, y2)</strong>: Draws a line from (x1, y1) to (x2, y2).</p>
+                    <p><strong>rectangle(left, top, right, bottom)</strong>: Draws an unfilled rectangle.</p>
+                    <p><strong>setcolor(color)</strong>: Sets current drawing color.</p>
+                    <p><strong>closegraph()</strong>: Deallocates memory used by graphics system and restores text mode.</p>
+                </div>
+
+                <h3>💡 Why Turbo C++ is Unique (16-bit Architecture)</h3>
+                <div class="guide-box">
+                    <p>• <strong>16-bit Integers</strong>: In Turbo C++, <code>int</code> is 16-bit (2 bytes), with values from <strong>-32,768 to 32,767</strong>. (Modern compilers use 32-bit/4 bytes).</p>
+                    <p>• <strong>Header .h extension</strong>: Turbo C++ uses pre-standard C++ headers like <code>#include &lt;iostream.h&gt;</code> without <code>using namespace std;</code>.</p>
+                    <p>• <strong>void main()</strong>: Permitted in Turbo C++ 3.0, whereas ISO C++ requires <code>int main()</code>.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Code Injector / Paste Modal Dialog -->
+    <div id="paste-modal" class="modal-backdrop">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span>📋 Paste & Inject Code into Turbo C++</span>
+                <button id="btn-close-paste" class="btn-retro" style="padding: 2px 6px;">✕</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.8rem; color: var(--accent-cyan);">
+                    Paste your C/C++ code below. Clicking "Inject" will simulate high-speed keystrokes directly into the active Turbo C++ editor window. (Make sure a new editor window is open in Turbo C++ first!)
+                </p>
+                <textarea id="paste-code-input" class="modal-textarea" placeholder="Paste your C or C++ source code here..."></textarea>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                    <div>
+                        <label for="paste-speed">Typing Speed: </label>
+                        <select id="paste-speed" class="select-retro">
+                            <option value="5">Ultra Fast (5ms)</option>
+                            <option value="15" selected>Fast (15ms)</option>
+                            <option value="35">Normal (35ms)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Injection Progress Bar -->
+                <div id="paste-progress" style="display: none;">
+                    <div id="paste-status" style="font-size: 0.8rem; color: var(--accent-yellow); margin-top: 4px;">Injecting code...</div>
+                    <div class="progress-track">
+                        <div id="paste-progress-bar" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-inject" class="btn-retro" style="display: none; background: #ff5555; color: #ffffff;">Stop Injection</button>
+                <button id="btn-start-inject" class="btn-retro primary">⚡ Inject into Turbo C++</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Borland Footer -->
+    <footer class="borland-footer">
+        <div>
+            <span class="status-badge">DOSBOX WASM</span>
+            <span>Borland Turbo C++ 3.0 (16-bit 80286/80386 Real Mode)</span>
+        </div>
+        <div>
+            <span>Resolution: 640x480 VGA / 80x25 Text</span>
+            <span style="margin-left: 12px; color: #0000a8;">WebAssembly Emulation</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="examples.js"></script>
+    <script src="simulator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
